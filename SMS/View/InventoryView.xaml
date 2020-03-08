@@ -1,0 +1,154 @@
+﻿<Page x:Class="SMS.View.InventoryView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+	  xmlns:MD="http://materialdesigninxaml.net/winfx/xaml/themes"
+      mc:Ignorable="d" 
+      d:DesignHeight="700" d:DesignWidth="1300" FontFamily="Cambria"
+      Title="InventoryView">
+
+    <Grid>
+		<MD:Card  Margin="3">
+			<Grid>
+				<Grid.RowDefinitions>
+					<RowDefinition Height="50" />
+					<RowDefinition Height="*" />
+					<RowDefinition Height="50" />
+				</Grid.RowDefinitions>
+				<StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" Cursor="Hand" >
+					<MD:PackIcon Kind="AccountBalanceWallet" Height="28" Width="28" Margin="10 0 0 0"/>
+					<TextBlock Text="Inventory" FontFamily="Cambria" FontSize="23" Margin="10 0 0 0" ></TextBlock>
+				</StackPanel>
+				<StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+					<TextBox  Margin="10,0,0,0" Text="{Binding NAME}" MD:HintAssist.Hint="Name" Width="200"  FontFamily="Cambria" FontSize="22" Height="50" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Foreground="Black"/>
+					<ComboBox HorizontalAlignment="Left"  Margin="40,0,0,0" ItemsSource="{Binding Categories}" DisplayMemberPath="Name"  MD:HintAssist.Hint="Category" Width="100" FontFamily="Cambria" Style="{StaticResource MaterialDesignFloatingHintComboBox}" Foreground="Black"  Height="50" FontSize="22" />
+					<ComboBox HorizontalAlignment="Left" Margin="40,0,0,0"  ItemsSource="{Binding Brands}" DisplayMemberPath="Name" MD:HintAssist.Hint="Brand" Width="100" FontFamily="Cambria" Style="{StaticResource MaterialDesignFloatingHintComboBox}" Foreground="Black"  Height="50" FontSize="22" />
+					<ComboBox HorizontalAlignment="Left" Margin="40,0,0,0" ItemsSource="{Binding Types}" DisplayMemberPath="Name" MD:HintAssist.Hint="Type" Width="100" FontFamily="Cambria" Style="{StaticResource MaterialDesignFloatingHintComboBox}" Foreground="Black"  Height="50" FontSize="22" />
+				</StackPanel>
+				<Button x:Name="btnAddProduct" Command="{Binding AddFromCommand}" CommandParameter="Visible" Width="50" Height="40" Margin="10,0,0,0" HorizontalAlignment="Right">
+					<MD:PackIcon Kind="PlusCircle"	 Height="20" Width="20"/>
+				</Button>
+				<DataGrid Initialized="GrdProducts_Initialized" Grid.Row="1" x:Name="grdProducts" ItemsSource="{Binding Products, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" IsReadOnly="True" ColumnWidth="*">
+					<DataGrid.Columns>
+						<DataGridTextColumn Binding="{Binding Path='Name'}" Header="Name" />
+						<DataGridTextColumn Binding="{Binding Path='UPC'}" Header="UPC" />
+						<DataGridTextColumn Binding="{Binding Category.CID}"  Header="Category" />
+						<DataGridTextColumn Binding="{Binding Path='Brand'}" Header="Brand" />
+						<DataGridTextColumn Binding="{Binding Path='Type'}" Header="Type" />
+						<DataGridTextColumn Binding="{Binding Path='Qty'}" Header="Qty" />
+						<DataGridTextColumn Binding="{Binding Path='Price'}" Header="Price" />
+						<DataGridTemplateColumn Width="80">
+							<DataGridTemplateColumn.CellTemplate>
+								<DataTemplate>
+									<Button x:Name="btEdit" Click="BtEdit_Click" Width="50">
+										<MD:PackIcon Kind="Pen" Height="20" Width="20"/>
+									</Button>
+								</DataTemplate>	
+							</DataGridTemplateColumn.CellTemplate>
+						</DataGridTemplateColumn>
+						<DataGridTemplateColumn  Width="80">
+							<DataGridTemplateColumn.CellTemplate>
+								<DataTemplate>
+									<Button x:Name="btnDelete" Click="BtnDelete_Click" Width="50">
+										<MD:PackIcon Kind="Delete" Height="20" Width="20"/>
+									</Button>
+								</DataTemplate>
+							</DataGridTemplateColumn.CellTemplate>
+						</DataGridTemplateColumn>
+					</DataGrid.Columns>
+				</DataGrid>
+			</Grid>
+		</MD:Card>
+		<Grid Margin="-2,0,2,0"  Visibility="{Binding FrmVis,UpdateSourceTrigger=PropertyChanged}">
+			<Grid>
+				<Border HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="Black" Opacity=".28" />
+				<Border HorizontalAlignment="Center" VerticalAlignment="Center" Background="White" Padding="0" BorderBrush="Transparent" BorderThickness="0">
+					<MD:Card Name="From"  Padding="0" Margin="0" Width="500"  Height="590" VerticalAlignment="Center" HorizontalAlignment="Center" >
+						<Grid  Background="#ffffff" Width="500"  Height="590"  VerticalAlignment="Center" HorizontalAlignment="Center"   >
+							<Grid.Effect>
+								<DropShadowEffect BlurRadius="5"  ShadowDepth="1" Opacity="1"/>
+							</Grid.Effect>
+							<Grid.RowDefinitions>
+								<RowDefinition  Height="45"/>
+								<RowDefinition Height="*"/>
+							</Grid.RowDefinitions>
+
+							<Grid x:Name="GridBarraTitulo" Grid.Row="0" Background="#1497b8" >
+								<MD:PackIcon Kind="PlusCircle" HorizontalAlignment="Left" Margin="2,0,0,0" VerticalAlignment="Center" Foreground="White" Height="28" Width="32"/>
+								<TextBlock FontFamily="Cambria" HorizontalAlignment="Left" Margin="35,0,0,3" FontSize="23"  Text="Inventory" Foreground="White" FontWeight="Bold"  VerticalAlignment="Center"/>
+								<StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="10,0">
+									<Button x:Name="ButtonFechar" Command="{Binding AddFromCommand}" CommandParameter="Hidden" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" Width="30" Height="30" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White">
+										<MD:PackIcon Kind="CloseCircle" Height="28" Width="28"/>
+									</Button>
+								</StackPanel>
+							</Grid>
+							<Grid Grid.Row="1" Margin="0,10,0,0" HorizontalAlignment="Left" Width="500">
+								<Grid.RowDefinitions>
+									<RowDefinition Height="20"/>
+									<RowDefinition Height="50"/>
+									<RowDefinition Height="50"/>
+									<RowDefinition Height="50"/>
+									<RowDefinition Height="50"/>
+									<RowDefinition Height="50"/>
+									<RowDefinition Height="50"/>
+									<RowDefinition Height="50"/>
+									<RowDefinition />
+									<RowDefinition Height="*"/>
+								</Grid.RowDefinitions>
+								<StackPanel Grid.Row="1" HorizontalAlignment="Center" Width="400">
+									<TextBox  Margin="8,0,8,0" Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" MD:HintAssist.Hint="NAME"  FontFamily="Cambria" FontSize="22" Height="50" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Foreground="Black"/>
+								</StackPanel>
+								<StackPanel Grid.Row="2" HorizontalAlignment="Center" Width="400">
+									<TextBox  Margin="8,0,8,0" Text="{Binding UPC, UpdateSourceTrigger=PropertyChanged}" MD:HintAssist.Hint="UPC" FontFamily="Cambria" FontSize="22" Height="50" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Foreground="Black"/>
+								</StackPanel>
+								<StackPanel Grid.Row="3" HorizontalAlignment="Center" Width="390">
+									<ComboBox  ItemsSource="{Binding Categories}" SelectedItem="{Binding Category, UpdateSourceTrigger=PropertyChanged}" DisplayMemberPath="Name" MD:HintAssist.Hint=" Select Category" Width="390" FontFamily="Cambria" Style="{StaticResource MaterialDesignFloatingHintComboBox}" Foreground="Black" IsEditable="True" Height="50" FontSize="22" />
+								</StackPanel>
+								<StackPanel Grid.Row="4" HorizontalAlignment="Center" Width="390">
+									<ComboBox  ItemsSource="{Binding Brands}" SelectedItem="{Binding Brand, UpdateSourceTrigger=PropertyChanged}" DisplayMemberPath="Name" MD:HintAssist.Hint=" Select Brand" Width="390" FontFamily="Cambria" Style="{StaticResource MaterialDesignFloatingHintComboBox}" Foreground="Black" IsEditable="True" Height="50" FontSize="22" />
+								</StackPanel>
+								<StackPanel Grid.Row="5" HorizontalAlignment="Center" Width="390">
+									<ComboBox  ItemsSource="{Binding Types}" SelectedItem="{Binding Type, UpdateSourceTrigger=PropertyChanged}" DisplayMemberPath="Name" MD:HintAssist.Hint=" Select Type" FontFamily="Cambria" Style="{StaticResource MaterialDesignFloatingHintComboBox}" Foreground="Black" IsEditable="True" Height="50" FontSize="22" />
+								</StackPanel>
+								<StackPanel Grid.Row="6" Width="400" HorizontalAlignment="Center">
+									<TextBox  Margin="8,0,8,0" Text="{Binding Qty, Mode=TwoWay}" MD:HintAssist.Hint="Quantity" FontFamily="Cambria" FontSize="22" Height="50" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Foreground="Black"/>
+								</StackPanel>
+								<StackPanel Grid.Row="7" Width="400" HorizontalAlignment="Center">
+									<TextBox  Margin="8,0,8,0" Text="{Binding ListPrice, Mode=TwoWay}" MD:HintAssist.Hint="List Price" FontFamily="Cambria" FontSize="22" Height="50" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Foreground="Black"/>
+								</StackPanel>
+								<StackPanel Grid.Row="8" Width="400" HorizontalAlignment="Center">
+									<TextBox  Margin="8,0,8,0" Text="{Binding Price, Mode=TwoWay}" MD:HintAssist.Hint="Price" FontFamily="Cambria" FontSize="22" Height="50" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Foreground="Black"/>
+								</StackPanel>
+								<StackPanel Grid.Row="9" VerticalAlignment="Bottom" HorizontalAlignment="Right">
+									<StackPanel Margin="10,20" Orientation="Horizontal">
+										<Button Margin="0" Command="{Binding SaveCommand}" Width="150" Height="55" Background="#009973" FontSize="22" FontWeight="Bold" BorderBrush="#009973" >
+											<StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+												<MD:PackIcon Kind="ContentSave" VerticalAlignment="Center" Width="22 " Height="22"/>
+												<TextBlock HorizontalAlignment="Center" Margin="5,0,0,0" Text="SAVE" FontFamily="Cambria"/>
+											</StackPanel>
+										</Button>
+										<Button Command="{Binding ClearCommand}" Margin="10,0,4,0" Width="150" Height="55" Background="#e6ac00" FontSize="22" FontWeight="Bold" BorderBrush="#e6ac00">
+											<StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+												<MD:PackIcon Kind="Broom" VerticalAlignment="Center" Width="22 " Height="22"/>
+												<TextBlock HorizontalAlignment="Center" Margin="5,0,0,0" Text="CLEAR" FontFamily="Cambria"/>
+											</StackPanel>
+										</Button>
+
+										<Button Command="{Binding AddFromCommand}" CommandParameter="Hidden" Margin="10,0,4,0" Width="150" Height="55" Background="Red" FontSize="22" FontWeight="Bold" BorderBrush="#e6ac00">
+											<StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+												<MD:PackIcon Kind="Broom" VerticalAlignment="Center" Width="22 " Height="22"/>
+												<TextBlock HorizontalAlignment="Center" Margin="5,0,0,0" Text="CANCLE" FontFamily="Cambria"/>
+											</StackPanel>
+										</Button>
+										
+									</StackPanel>
+								</StackPanel>
+							</Grid>
+						</Grid>
+					</MD:Card>
+				</Border>
+			</Grid>
+		</Grid>
+	</Grid>
+</Page>

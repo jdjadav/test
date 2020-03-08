@@ -1,0 +1,181 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="smsModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="product">
+    <Key>
+      <PropertyRef Name="Pid" />
+    </Key>
+    <Property Name="Pid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="UPC" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Category" Type="Int32" />
+    <Property Name="Brand" Type="Int32" />
+    <Property Name="Type" Type="Int32" Nullable="false" />
+    <Property Name="When" Type="DateTime" Nullable="false" />
+    <NavigationProperty Name="stocks" Relationship="Self.Product1" FromRole="product" ToRole="stock" />
+    <NavigationProperty Name="productbrand" Relationship="Self.ProductBrand1" FromRole="product" ToRole="productbrand" />
+    <NavigationProperty Name="productcategory" Relationship="Self.ProductCategory1" FromRole="product" ToRole="productcategory" />
+    <NavigationProperty Name="producttype" Relationship="Self.ProductType1" FromRole="product" ToRole="producttype" />
+  </EntityType>
+  <EntityType Name="productbrand">
+    <Key>
+      <PropertyRef Name="Bid" />
+    </Key>
+    <Property Name="Bid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="When" Type="DateTime" Nullable="false" />
+    <NavigationProperty Name="products" Relationship="Self.ProductBrand1" FromRole="productbrand" ToRole="product" />
+  </EntityType>
+  <EntityType Name="productcategory">
+    <Key>
+      <PropertyRef Name="CID" />
+    </Key>
+    <Property Name="CID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="WhenAdded" Type="DateTime" Nullable="false" />
+    <NavigationProperty Name="products" Relationship="Self.ProductCategory1" FromRole="productcategory" ToRole="product" />
+  </EntityType>
+  <EntityType Name="producttype">
+    <Key>
+      <PropertyRef Name="Tid" />
+    </Key>
+    <Property Name="Tid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="products" Relationship="Self.ProductType1" FromRole="producttype" ToRole="product" />
+  </EntityType>
+  <EntityType Name="role">
+    <Key>
+      <PropertyRef Name="rid" />
+    </Key>
+    <Property Name="rid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Inventory" Type="Boolean" />
+    <Property Name="Order" Type="Boolean" />
+    <Property Name="Expense" Type="Boolean" />
+    <Property Name="user" Type="Boolean" />
+    <NavigationProperty Name="users" Relationship="Self.user_role" FromRole="role" ToRole="users" />
+  </EntityType>
+  <EntityType Name="stock">
+    <Key>
+      <PropertyRef Name="StkID" />
+    </Key>
+    <Property Name="StkID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Qty" Type="Double" Nullable="false" />
+    <Property Name="UOM" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+    <Property Name="Price" Type="Int32" Nullable="false" />
+    <Property Name="Product" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="product1" Relationship="Self.Product1" FromRole="stock" ToRole="product" />
+  </EntityType>
+  <EntityType Name="store">
+    <Key>
+      <PropertyRef Name="Sid" />
+    </Key>
+    <Property Name="Sid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+  </EntityType>
+  <EntityType Name="user">
+    <Key>
+      <PropertyRef Name="UID" />
+    </Key>
+    <Property Name="UID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="User_Name" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Password" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Mac" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Role" Type="Int32" Nullable="false" />
+    <Property Name="Adress" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+    <Property Name="Email" Type="String" MaxLength="35" FixedLength="false" Unicode="false" />
+    <Property Name="IsActive" Type="Boolean" />
+    <Property Name="Contact" Type="Int32" />
+    <NavigationProperty Name="role1" Relationship="Self.user_role" FromRole="users" ToRole="role" />
+  </EntityType>
+  <Association Name="Product1">
+    <End Role="product" Type="Self.product" Multiplicity="1" />
+    <End Role="stock" Type="Self.stock" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="product">
+        <PropertyRef Name="Pid" />
+      </Principal>
+      <Dependent Role="stock">
+        <PropertyRef Name="Product" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ProductBrand1">
+    <End Role="productbrand" Type="Self.productbrand" Multiplicity="0..1" />
+    <End Role="product" Type="Self.product" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="productbrand">
+        <PropertyRef Name="Bid" />
+      </Principal>
+      <Dependent Role="product">
+        <PropertyRef Name="Brand" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ProductCategory1">
+    <End Role="productcategory" Type="Self.productcategory" Multiplicity="0..1" />
+    <End Role="product" Type="Self.product" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="productcategory">
+        <PropertyRef Name="CID" />
+      </Principal>
+      <Dependent Role="product">
+        <PropertyRef Name="Category" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ProductType1">
+    <End Role="producttype" Type="Self.producttype" Multiplicity="1" />
+    <End Role="product" Type="Self.product" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="producttype">
+        <PropertyRef Name="Tid" />
+      </Principal>
+      <Dependent Role="product">
+        <PropertyRef Name="Type" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="user_role">
+    <End Role="role" Type="Self.role" Multiplicity="1" />
+    <End Role="users" Type="Self.user" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="role">
+        <PropertyRef Name="rid" />
+      </Principal>
+      <Dependent Role="users">
+        <PropertyRef Name="Role" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="smsEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="products" EntityType="Self.product" />
+    <EntitySet Name="productbrands" EntityType="Self.productbrand" />
+    <EntitySet Name="productcategories" EntityType="Self.productcategory" />
+    <EntitySet Name="producttypes" EntityType="Self.producttype" />
+    <EntitySet Name="roles" EntityType="Self.role" />
+    <EntitySet Name="stocks" EntityType="Self.stock" />
+    <EntitySet Name="stores" EntityType="Self.store" />
+    <EntitySet Name="users" EntityType="Self.user" />
+    <AssociationSet Name="Product1" Association="Self.Product1">
+      <End Role="product" EntitySet="products" />
+      <End Role="stock" EntitySet="stocks" />
+    </AssociationSet>
+    <AssociationSet Name="ProductBrand1" Association="Self.ProductBrand1">
+      <End Role="productbrand" EntitySet="productbrands" />
+      <End Role="product" EntitySet="products" />
+    </AssociationSet>
+    <AssociationSet Name="ProductCategory1" Association="Self.ProductCategory1">
+      <End Role="productcategory" EntitySet="productcategories" />
+      <End Role="product" EntitySet="products" />
+    </AssociationSet>
+    <AssociationSet Name="ProductType1" Association="Self.ProductType1">
+      <End Role="producttype" EntitySet="producttypes" />
+      <End Role="product" EntitySet="products" />
+    </AssociationSet>
+    <AssociationSet Name="user_role" Association="Self.user_role">
+      <End Role="role" EntitySet="roles" />
+      <End Role="users" EntitySet="users" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="769d2937fcee43c0be0d76256d8b36a8" Name="Diagram1">
+        <EntityTypeShape EntityType="smsModel.product" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="smsModel.productbrand" Width="1.5" PointX="0.75" PointY="1.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="smsModel.productcategory" Width="1.5" PointX="0.75" PointY="5.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="smsModel.producttype" Width="1.5" PointX="0.75" PointY="7.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="smsModel.role" Width="1.5" PointX="2.75" PointY="6.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="smsModel.stock" Width="1.5" PointX="5.25" PointY="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="smsModel.store" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="smsModel.user" Width="1.5" PointX="5" PointY="6" IsExpanded="true" />
+        <AssociationConnector Association="smsModel.Product1" ManuallyRouted="false" />
+        <AssociationConnector Association="smsModel.ProductBrand1" ManuallyRouted="false" />
+        <AssociationConnector Association="smsModel.ProductCategory1" ManuallyRouted="false" />
+        <AssociationConnector Association="smsModel.ProductType1" ManuallyRouted="false" />
+        <AssociationConnector Association="smsModel.user_role" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

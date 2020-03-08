@@ -1,0 +1,139 @@
+﻿<Controls:MetroWindow
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+      xmlns:MD="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d" 
+        x:Class="SMS.CustomDialogBox"
+        WindowState="Normal"
+        Background="White" Height="364" Width="340"
+       >
+    <Grid>
+
+        <!--#region InformationDialogBox-->
+        <StackPanel x:Name="InformationDialogBox" Visibility="Visible">
+            <Grid x:Name="InformationHeader" Height="120" Background="#FAC917">
+                <Button x:Name="btnClose" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,1,0,0"  Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" Width="30" Height="30" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" Click="btnClose_Click">
+                    <MD:PackIcon Kind="CloseBox" Height="28" Width="28"/>
+                </Button>
+                <!--<Image Source="/Images/Elements/DialogBox_CloseButton.png" Height="15" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,8,8,0" Cursor="Hand" MouseDown="Close_Window"/>-->
+
+                <MD:PackIcon Kind="Information" Foreground="White" Height="75" Width="75" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <!--<Image Source="/Images/Elements/DialogBoxIcons_Information.png" Width="68" HorizontalAlignment="Center" VerticalAlignment="Center" RenderOptions.BitmapScalingMode="HighQuality"/>-->
+            </Grid>
+            <Grid x:Name="InformationContentSP">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="66"/>
+                    <RowDefinition Height="86"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <TextBlock Grid.Row="0" x:Name="InformationTB" Text="Watch out!" Foreground="#FAC917" FontFamily="Montserrat Regular" FontSize="24" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,16,0,0"/>
+
+                <TextBlock Grid.Row="1" x:Name="InformationText" Text="Lorem ipsum dolor sit amet, id laudem mandamus eos"  Margin="0,00,0,0" Width="306" Height="70" TextWrapping="Wrap" Foreground="#747474" FontFamily="Montserrat Light" TextAlignment="Center" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+
+                <Button x:Name="InformationOKButton" Grid.Row="2" Margin="10,0,4,0" Width="160" Height="50" Background="#FFFAC917" FontSize="22" FontWeight="Bold" BorderBrush="#FFFAC917" Click="btnClose_Click">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <MD:PackIcon Kind="CheckboxMarkedCircle" VerticalAlignment="Center" Width="22 " Height="22"/>
+                        <TextBlock HorizontalAlignment="Center" Margin="5,0,0,0" Text="OK" FontFamily="Cambria"/>
+                    </StackPanel>
+                </Button>
+               
+            </Grid>
+        </StackPanel>
+        <!--#endregion-->
+
+        <!--#region ErrorDialogBox-->
+        <StackPanel x:Name="ErrorDialogBox" Visibility="Collapsed">
+            <Grid x:Name="ErrorHeader" Height="120" Background="#F05228">
+                <Button x:Name="btnErrClose" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,1,0,0"  Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" Width="30" Height="30" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" Click="btnClose_Click">
+                    <MD:PackIcon Kind="CloseBox" Height="28" Width="28"/>
+                </Button>
+                <MD:PackIcon Kind="CloseCircle" Foreground="White" Height="75" Width="75" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+               
+            </Grid>
+            <Grid x:Name="ErrorContentSP">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="66"/>
+                    <RowDefinition Height="86"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <TextBlock Grid.Row="0" x:Name="ErrorTB" Text="Oops!" Foreground="#F05228" FontFamily="Montserrat Regular" FontSize="24" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,16,0,0"/>
+
+                <TextBlock Grid.Row="1" x:Name="ErrorText" Text="Lorem ipsum dolor sit amet, id laudem mandamus"  Margin="0,00,0,0" Width="306" Height="70" TextWrapping="Wrap" Foreground="#747474" FontFamily="Montserrat Light" TextAlignment="Center" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+
+                <!--<StackPanel Grid.Row="2" x:Name="ErrorOKButton" Visibility="Visible" Orientation="Vertical" Width="144" Height="42" Margin="0,0,0,0" HorizontalAlignment="Center" VerticalAlignment="Top" Cursor="Hand" MouseDown="ErrorOKButton_MouseDown">
+                    
+                    
+                    <Grid Width="Auto" HorizontalAlignment="Stretch" Height="38" Background="#F05228" >
+                        <TextBlock Text="OK" FontFamily="Montserrat Regular" FontSize="22px" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,2"/>
+                    </Grid>
+                    <Grid Width="Auto" HorizontalAlignment="Stretch" Height="4" Background="#E34627" VerticalAlignment="Bottom"></Grid>
+                </StackPanel>-->
+                <Button x:Name="ErrorOKButton"  Grid.Row="2" Margin="10,0,4,0" Width="160" Height="50" Background="#FFF05228" FontSize="22" FontWeight="Bold" BorderBrush="#FFF05228" Click="btnClose_Click">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <MD:PackIcon Kind="CheckboxMarkedCircle" VerticalAlignment="Center" Width="22 " Height="22"/>
+                        <TextBlock HorizontalAlignment="Center" Margin="5,0,0,0" Text="OK" FontFamily="Cambria"/>
+                    </StackPanel>
+                </Button>
+
+            </Grid>
+        </StackPanel>
+        <!--#endregion-->
+
+        <!--#region QuestionDialogBox-->
+        <StackPanel x:Name="QuestionDialogBox" Visibility="Collapsed">
+            <Grid x:Name="QuestionHeader" Height="120" Background="#74d461">
+                <Button  HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,1,0,0"  Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" Width="30" Height="30" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" Click="btnClose_Click">
+                    <MD:PackIcon Kind="CloseBox" Height="28" Width="28"/>
+                </Button>
+                <MD:PackIcon Kind="CommentQuestionOutline" Foreground="White" Height="75" Width="75" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+               
+            </Grid>
+            <Grid x:Name="QuestionContentSP">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="66"/>
+                    <RowDefinition Height="86"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <TextBlock Grid.Row="0" x:Name="QuestionTB" Text="Are you sure?" Foreground="#74d461" FontFamily="Montserrat Regular" FontSize="24" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,16,0,0"/>
+
+                <TextBlock Grid.Row="1" x:Name="QuestionText" Text="Lorem ipsum dolor sit amet, id laudem mandamus eos."  Margin="0,00,0,0" Width="306" Height="100" TextAlignment="Center" TextWrapping="Wrap" Foreground="#747474" FontFamily="Montserrat Light" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+
+                <Grid Grid.Row="2" HorizontalAlignment="Center" Width="310">
+
+                    <!--<Button x:Name="QuestionYesButton" IsEnabled="True" Background="#6ac259" Content="Yes" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="3" Width="144" Height="42" Margin="0,0,0,0" Style="{DynamicResource CustomButtonStyle}" Click="QuestionYesButton_Click"/>-->
+                    <!--<StackPanel x:Name="QuestionYesButton" Visibility="Visible" Orientation="Vertical" Width="144" Height="42" Margin="0,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Cursor="Hand" MouseDown="QuestionYesButton_MouseDown">
+                        <Grid Width="Auto" HorizontalAlignment="Stretch" Height="38" Background="#6ac259" >
+                            <TextBlock Text="Yes" FontFamily="Montserrat Regular" FontSize="22px" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,2"/>
+                        </Grid>
+                        <Grid Width="Auto" HorizontalAlignment="Stretch" Height="4" Background="#5dab4e" VerticalAlignment="Bottom"></Grid>
+                    </StackPanel>-->
+                    <Button x:Name="QuestionYesButton" VerticalAlignment="Top" HorizontalAlignment="Left" Width="144" Grid.Row="2"  Height="50" Background="#009973" FontSize="22" FontWeight="Bold" BorderBrush="#009973" Click="QuestionYesButton_Click">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <MD:PackIcon Kind="CheckboxMarkedCircle" VerticalAlignment="Center" Width="22 " Height="22"/>
+                            <TextBlock HorizontalAlignment="Center" Margin="5,0,0,0" Text="YES" FontFamily="Cambria"/>
+                        </StackPanel>
+                    </Button>
+                    <Button VerticalAlignment="Top" HorizontalAlignment="Right" Width="144" Grid.Row="2"  Height="50" Background="#FFF05228" FontSize="22" FontWeight="Bold" BorderBrush="#FFF05228" Click="QuestionNoButton_Click">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <MD:PackIcon Kind="CloseCircle" VerticalAlignment="Center" Width="22 " Height="22"/>
+                            <TextBlock HorizontalAlignment="Center" Margin="5,0,0,0" Text="NO" FontFamily="Cambria"/>
+                        </StackPanel>
+                    </Button>
+                   
+               
+
+                  
+                </Grid>
+
+
+            </Grid>
+        </StackPanel>
+        <!--#endregion-->
+
+    </Grid>
+</Controls:MetroWindow>
